@@ -20,7 +20,7 @@ jobs:
       - run : echo "hola mundo, Felipe"
 
       - name: Checkout
-        uses: uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4.2.2
       - name: Listar los archivos del repositorio
         run: |
           echo "El repositorio ${{ github.repository }} contiene los siguientes archivos:"
