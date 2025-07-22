@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilderABC(args);
 
 
 
@@ -18,7 +18,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 
-//La parte que se introduce dentro de AddJsonOptions se hace para que se ignoren los ciclos, que se tratarán luego.
+//La parte que se introduce dentro de AddJsonOptions se hace para que se ignoren los ciclos, que se tratarÃ¡n luego.
 //builder.Services.AddControllers().AddJsonOptions(opciones => opciones.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => opciones.UseSqlServer("name=DefaultConnection"));
@@ -44,7 +44,7 @@ builder.Services.AddAuthentication().AddJwtBearer(opciones =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["llavejwt"]!)),
-        ClockSkew = TimeSpan.Zero // Para evitar problemas con la expiración del token
+        ClockSkew = TimeSpan.Zero // Para evitar problemas con la expiraciÃ³n del token
 
     };
 });
@@ -65,7 +65,7 @@ builder.Services.AddSwaggerGen(opciones =>
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
             Email="impipo@hotmail.com",
-            Name = "Felipe Gavilán",
+            Name = "Felipe GavilÃ¡n",
             Url = new Uri("https://gavilan.blog")
         },
         License = new Microsoft.OpenApi.Models.OpenApiLicense
@@ -105,7 +105,7 @@ builder.Services.AddSwaggerGen(opciones =>
 
 var app = builder.Build();
 
-//Crear las migraciones al ejecutar la aplicación
+//Crear las migraciones al ejecutar la aplicaciÃ³n
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
