@@ -17,7 +17,7 @@ jobs:
     runs-on: ubutu-latest
     steps:
       - name: Muestra mensaje hola mundo
-      - run : echo "hola mundo, Felipe"
+        run : echo "hola mundo, Felipe"
 
       - name: Checkout
         uses: actions/checkout@v4.2.2
