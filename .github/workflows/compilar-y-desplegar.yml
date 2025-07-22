@@ -23,7 +23,7 @@ jobs:
       - name: Instalar .NET
         uses: actions/setup-dotnet@v3.4.2
         with:
-          dotnet-version: ${{env.VERSION_DORNET}}
+          dotnet-version: ${{env.VERSION_DOTNET}}
 
       - name: Obteniendo las dependencias
         run: dotnet restore
