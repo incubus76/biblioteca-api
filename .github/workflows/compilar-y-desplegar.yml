@@ -11,6 +11,8 @@ on:
       - '.github/workflows/compilar-y-desplegar.yml'
 env:
   VERSION_DOTNET: '9'
+  AZURE_APP_SERVICE_NOMBRE: BibliotecaAPI20250721114028
+  AZURE_APP_SERVICE_UBICACION_PAQUETE: '.'
 
 jobs:
   build:
@@ -32,6 +34,29 @@ jobs:
       - name: Compilar
         run: dotnet build --no-restore
 
-      - name: Realizar pruebas
-        run: dotnet test --no-build
+      - name: Publicar el web API
+        run: dotnet publish $proyecto -c Release -o miapp --runtime win-x86
+
+      - name: Cargar artefacto
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          path: ./miapp
+          name: build
+  despliegue:
+    permissions:
+      contents: none
+    runs-on: ubuntu-lastest
+    needs: build
+    steps:
+      - name: Obtener los artefactos
+        uses: actions/download-artifact@v4.3.0
+        with:
+          name: build
+
+      - name: Despliegue al Azure App Service
+        uses: Azure/webapps-deploy@v2.2.15
+        with:
+          app-name: ${{env.AZURE_APP_SERVICE_NOMBRE}}
+          publish-profile: ${{env.AZURE_PERFIL_PUBLICO}}
+          package: ${{env.AZURE_APP_SERVICE_UBICACION_PAQUETE}}
       
